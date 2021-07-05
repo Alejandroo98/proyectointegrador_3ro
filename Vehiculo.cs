@@ -10,7 +10,7 @@ namespace ProyectoIntegrador
 
         public override string ToString()
         {
-            return String.Format($"Placa del Vehiculo: { this.Placa }");
+            return String.Format($"Placa: { this.Placa } - { this.MatriculaId }");
         }
     }
 

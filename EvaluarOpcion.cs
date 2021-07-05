@@ -6,7 +6,7 @@ namespace ProyectoIntegrador
     public class EvaluarOpcion
     {
 
-        public EvaluarOpcion( List<String> registros ){
+        public EvaluarOpcion( List<Vehiculo> registros ){
             Registros = registros;
         }
 
@@ -19,7 +19,7 @@ namespace ProyectoIntegrador
             opcionValida( opcion[0].ToLower() , opcion );
         }
 
-        List<String> Registros = new List<String>();
+        List<Vehiculo> Registros = new List<Vehiculo>();
         
 
         public void opcionValida( string opcion , string[] opciones ){
