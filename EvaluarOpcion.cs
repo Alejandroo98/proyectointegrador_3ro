@@ -31,12 +31,18 @@ namespace ProyectoIntegrador
 
                 if( opciones[0] == "ingresar" )
                 {
-                    if( opciones.Length > 1 )
+                    if( opciones.Length < 2 )
                     {
-                        Console.WriteLine("*** ERROR: ingresar no requiere un parametro. ingresar[placa] ***");
+                        Console.WriteLine("*** ERROR: ingresar requiere un parametro. ingresar[placa] ***");
                         evaluarOpcion();
                     }
-                    else {
+                    else if( opciones.Length > 2 )
+                    {
+                        Console.WriteLine("*** ERROR: ingresar requiere un solo parametro. ingresar[placa] ***");
+                        evaluarOpcion();
+                    }
+                    else if( opciones.Length == 2 )
+                    {
                         program.funcionesApp( opciones );
                     }
                 }
