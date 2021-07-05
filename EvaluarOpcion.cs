@@ -1,21 +1,30 @@
 using System;
-
+using System.Collections.Generic;
 
 namespace ProyectoIntegrador
 {
     public class EvaluarOpcion
     {
+
+        public EvaluarOpcion( List<Vehiculo> registros ){
+            Registros = registros;
+        }
+
+
         
-        public void evaluarOpcion()
+        public void evaluarOpcion(  )
         {
             //Leer la opcion ingresada del usuario;
             string[] opcion = opciones();
             opcionValida( opcion[0].ToLower() , opcion );
         }
 
+        List<Vehiculo> Registros = new List<Vehiculo>();
+        
+
         public void opcionValida( string opcion , string[] opciones ){
 
-            Program program = new Program();
+            Program program = new Program( Registros );
 
             if( opcion == "mostrar" || opcion == "ingresar" || opcion == "borrar" || opcion == "actualizar" || opcion == "filtrar" || opcion == "guardar" ||  opcion == "salir" )
             {

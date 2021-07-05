@@ -1,17 +1,17 @@
+using System;
+
 namespace ProyectoIntegrador
 {
-    class Vehiculo
+    public class Vehiculo
     {
         public int VehiculoId { get; set; }
         public string Placa { get; set; }
-        public int MatriculaId { get; set; }
+        public Matricula MatriculaId { get; set; } = new Matricula();
+
+        public override string ToString()
+        {
+            return String.Format($"Placa: { this.Placa } - { this.MatriculaId }");
+        }
     }
+
 }
-
-
-
-
-
-
-
-/*Programa para ayudar a recordar los dias de circulacion de un vehiculo y fecha de matriculacion*/
