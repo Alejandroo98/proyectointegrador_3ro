@@ -2,7 +2,7 @@ namespace ProyectoIntegrador
 {
     class Vehiculo
     {
-        int VehiculoId { get; set; }
+        public int VehiculoId { get; set; }
         public string Placa { get; set; }
         public int MatriculaId { get; set; }
     }
