@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ProyectoIntegrador
 {
     class Program
     {
-        
-        public Program(){
+
+
+        public Program()
+        {
             List<Vehiculo> registros = new List<Vehiculo>();
         }
-        
+
         static void Main(string[] args)
         {
             start();
@@ -23,33 +26,34 @@ namespace ProyectoIntegrador
 
         public void deseasContinuar()
         {
-            Console.WriteLine( "=== ¿Deseas continuar? Si[s] No[AnyKey] ===" );
+            Console.WriteLine("=== ¿Deseas continuar? Si[s] No[AnyKey] ===");
 
             string respuesta = Console.ReadLine();
-            
-            if( respuesta == "s" )
+
+            if (respuesta == "s")
             {
                 start();
-            }else if( respuesta != "s" )
+            }
+            else if (respuesta != "s")
             {
                 Console.WriteLine("=== GRACIAS POR USASR NUSETRA APP ===");
             }
-            
+
         }
 
-        public void funcionesApp( string[] opcion )
+        public void funcionesApp(string[] opcion)
         {
 
-            if ( opcion[0] == "mostrar" )
+            if (opcion[0] == "mostrar")
             {
                 //funcion para mostrar los registros
-                Console.WriteLine( "funcion para mostrar los registros" );
+                Console.WriteLine("funcion para mostrar los registros");
                 deseasContinuar();
             }
-            else if( opcion[0] == "ingresar" )
+            else if (opcion[0] == "ingresar")
             {
                 //funcion para ingresar nuevos registros
-                Console.WriteLine( "funcion para ingresar nuevos registros" );
+                Console.WriteLine("funcion para ingresar nuevos registros");
                 deseasContinuar();
 
                 Console.WriteLine("Ingrese Placa");
@@ -62,7 +66,11 @@ namespace ProyectoIntegrador
                 Console.WriteLine("Ingrese El nuemro de matricula");
                 string matricula = Console.ReadLine();
 
+<<<<<<< Updated upstream
                 Console.WriteLine("Ingrese L fecha de Emision de su Matricula");
+=======
+                Console.WriteLine("Ingrese La fecha de Emision de su Matricula");
+>>>>>>> Stashed changes
                 string fechaDeEmisionMatricula = Console.ReadLine();
                 DateTime fechaDeEmisionMatricula1 = DateTime.Parse(fechaDeEmisionMatricula);
 
@@ -78,37 +86,116 @@ namespace ProyectoIntegrador
                 };
 
             }
-            else if( opcion[0] == "borrar" )
+            else if (opcion[0] == "borrar")
             {
                 //funcion para borrar registros
-                Console.WriteLine( "funcion para borrar registros" );
+                Console.WriteLine("funcion para borrar registros");
+                Console.Write("ingrese un numero de matricula a ser borrado del sistema: ");
+                string numeroMatricula = Console.ReadLine();
+
+
+                Matricula matricula = new Matricula()
+                {
+                    NumeroMatricula = numeroMatricula
+                };
+
+                matricula.NumeroMatriculas = new List<string>
+                {
+                   "P25132",
+                   "P22512",
+                   "P87924"
+                };
+
+                /* var matriculasString = matricula.NumeroMatriculas.Select(actual => actual.ToString()).ToList();*/
+
+
+
+                VerificarExisteMatricula();
+                void VerificarExisteMatricula()
+                {
+
+
+                    if (matricula.NumeroMatriculas.Contains(numeroMatricula))
+                    {
+
+                        BorrarMatricula();
+                    }
+                    else
+                    {
+                        Console.WriteLine("el numero de matricula que ingreso no esta registrado en el sistema");
+
+                    }
+
+                }
+                void BorrarMatricula()
+                {
+
+                    if (matricula.NumeroMatriculas.Remove(numeroMatricula))
+                    {
+                        Console.WriteLine($"El numero de matricula borrado es {numeroMatricula}");
+                    };
+
+                }
+
+                Console.WriteLine("las matriculas en la lista son las siguientes: ");
+                foreach (var actual in matricula.NumeroMatriculas)
+                {
+
+
+                    Console.WriteLine(actual);
+                }
                 deseasContinuar();
             }
-            else if( opcion[0] == "actualizar" )
+
+
+            else if (opcion[0] == "actualizar")
             {
                 //funcion para acualiar registros 
-                Console.WriteLine( "funcion para acualiar registros " );
+                Console.WriteLine("funcion para actualizar registros ");
+                Console.WriteLine("Ingrese el numero de matricula que desea actualizar ");
+                string numeroMatricula = Console.ReadLine();
+
+                Matricula matricula = new Matricula()
+                {
+                    NumeroMatricula = numeroMatricula
+                };
+                matricula.NumeroMatriculas = new List<string>
+                {
+                   "P25132",
+                   "P22512",
+                   "P87924"
+                };
+                var indice = matricula.NumeroMatriculas.IndexOf(numeroMatricula);
+                matricula.NumeroMatriculas.RemoveAt(indice);
+                Console.WriteLine("Ingrese el nuevo valor: ");
+                string numeroMatriculaActualizar = Console.ReadLine();
+                matricula.NumeroMatriculas.Insert(indice, numeroMatriculaActualizar);
+                Console.WriteLine($"el valor cambio de {numeroMatricula} a {numeroMatriculaActualizar}");
+                foreach (var actual in matricula.NumeroMatriculas)
+                {
+                    Console.WriteLine(actual);
+                }
                 deseasContinuar();
             }
-            else if( opcion[0] == "filtrar" )
+            else if (opcion[0] == "filtrar")
             {
                 //funcion para filtrar registros 
-                Console.WriteLine( "funcion para filtrar registros" );
+                Console.WriteLine("funcion para filtrar registros");
                 deseasContinuar();
             }
-            else if( opcion[0] == "guardar" )
+            else if (opcion[0] == "guardar")
             {
                 //funcion para gurdar en XML
-                Console.WriteLine( "funcion para gurdar en XML" );
+                Console.WriteLine("funcion para gurdar en XML");
                 deseasContinuar();
             }
         }
-        
+
         List<Vehiculo> getRegistros()
         {
             return new List<Vehiculo>();
         }
-        
+
     }
 }
 
