@@ -48,6 +48,32 @@ namespace ProyectoIntegrador
                 //funcion para ingresar nuevos registros
                 Console.WriteLine( "funcion para ingresar nuevos registros" );
                 deseasContinuar();
+
+                Console.WriteLine("Ingrese Placa");
+                string placa = Console.ReadLine();
+                Vehiculo vehiculo = new Vehiculo()
+                {
+                    Placa = placa
+                };
+
+                Console.WriteLine("Ingrese El nuemro de matricula");
+                string matricula = Console.ReadLine();
+
+                Console.WriteLine("Ingrese L fecha de Emision de su Matricula");
+                string fechaDeEmisionMatricula = Console.ReadLine();
+                DateTime fechaDeEmisionMatricula1 = DateTime.Parse(fechaDeEmisionMatricula);
+
+                Console.WriteLine("Ingrese la fecha de Caducidad de su Matricula");
+                string fechaDeCaducidadMatricula = Console.ReadLine();
+                DateTime fechaDeCaducidadMatricula1 = DateTime.Parse(fechaDeCaducidadMatricula);
+
+                Matricula matriculaVehiculo = new Matricula()
+                {
+                    NumeroMatricula = matricula,
+                    FechaEmisiónMatricula = fechaDeEmisionMatricula1,
+                    FechaCaducidadMatricula = fechaDeCaducidadMatricula1
+                };
+
             }
             else if( opcion[0] == "borrar" )
             {
