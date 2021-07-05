@@ -5,19 +5,18 @@ namespace ProyectoIntegrador
 {
     public class EvaluarOpcion
     {
-        
         public void evaluarOpcion()
         {
             //Leer la opcion ingresada del usuario;
             string[] opcion = opciones();
             opcionValida( opcion[0].ToLower() , opcion );
+           
         }
 
         public void opcionValida( string opcion , string[] opciones ){
-
             Program program = new Program();
 
-            if( opcion == "mostrar" || opcion == "ingresar" || opcion == "borrar" || opcion == "actualizar" || opcion == "filtrar" || opcion == "guardar" ||  opcion == "salir" )
+            if( opcion == "mostrar" || opcion == "ingresar" || opcion == "borrar" || opcion == "actualizar" || opcion == "filtrar" || opcion == "guardar"  )
             {
                 if( opciones[0] == "mostrar" )
                 {
@@ -32,12 +31,18 @@ namespace ProyectoIntegrador
 
                 if( opciones[0] == "ingresar" )
                 {
-                    if( opciones.Length > 1 )
+                    if( opciones.Length < 2 )
                     {
-                        Console.WriteLine("*** ERROR: ingresar no requiere un parametro. ingresar[placa] ***");
+                        Console.WriteLine("*** ERROR: ingresar requiere un parametro. ingresar[placa] ***");
                         evaluarOpcion();
                     }
-                    else {
+                    else if( opciones.Length > 2 )
+                    {
+                        Console.WriteLine("*** ERROR: ingresar requiere un solo parametro. ingresar[placa] ***");
+                        evaluarOpcion();
+                    }
+                    else if( opciones.Length == 2 )
+                    {
                         program.funcionesApp( opciones );
                     }
                 }
@@ -64,10 +69,18 @@ namespace ProyectoIntegrador
 
                 if( opciones[0] == "actualizar" )
                 {
-                    if( opciones.Length > 1 ){
-                        Console.WriteLine("*** ERROR: mostrar no require ninguna parametro ***");
+                    if( opciones.Length < 4 )
+                    {
+                        Console.WriteLine("*** ERROR: actualizar requiere tres parametros.  actualizar[id][campo][valor] ***");
                         evaluarOpcion();
-                    }else {
+                    }
+                    else if( opciones.Length > 4 )
+                    {
+                        Console.WriteLine("*** ERROR: actualizar solo requiere tres parametros. actualizar[id][campo][valor]] ***");
+                        evaluarOpcion();
+                    }
+                    else if( opciones.Length == 4 )
+                    {
                         program.funcionesApp( opciones );
                     }
                 }
@@ -101,17 +114,7 @@ namespace ProyectoIntegrador
                         program.funcionesApp( opciones );
                     }
                 }
-
                 
-                if( opciones[0] == "salir" )
-                {
-                    if( opciones.Length > 1 ){
-                        Console.WriteLine("*** ERROR: salir no require ninguna parametro ***");
-                        evaluarOpcion();
-                    }else {
-                        program.funcionesApp( opciones );
-                    }
-                }
                 
             }
             else
@@ -119,7 +122,10 @@ namespace ProyectoIntegrador
                 Console.WriteLine("===== ERROR: INGRESA UNA OPCION VALIDA EH INTENTA DE NUEVO =====");
                 evaluarOpcion();
             }
+
+            
         }
+        
 
         public string[] opciones()
         {
@@ -128,6 +134,9 @@ namespace ProyectoIntegrador
             return opcion.Split(" ");
         }
 
-    }
+        
+        
+        
 
+    }
 }
