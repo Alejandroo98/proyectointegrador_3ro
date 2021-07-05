@@ -9,7 +9,7 @@ namespace ProyectoIntegrador
         {
             //Leer la opcion ingresada del usuario;
             string[] opcion = opciones();
-            opcionValida( opcion[0].ToLower() , opcion );
+            opcionValida( opcion[0].ToLower(), opcion );
            
         }
 
@@ -63,18 +63,10 @@ namespace ProyectoIntegrador
 
                 if( opciones[0] == "actualizar" )
                 {
-                    if( opciones.Length < 4 )
-                    {
-                        Console.WriteLine("*** ERROR: actualizar requiere tres parametros.  actualizar[id][campo][valor] ***");
+                    if( opciones.Length > 1 ){
+                        Console.WriteLine("*** ERROR: mostrar no require ninguna parametro ***");
                         evaluarOpcion();
-                    }
-                    else if( opciones.Length > 4 )
-                    {
-                        Console.WriteLine("*** ERROR: actualizar solo requiere tres parametros. actualizar[id][campo][valor]] ***");
-                        evaluarOpcion();
-                    }
-                    else if( opciones.Length == 4 )
-                    {
+                    }else {
                         program.funcionesApp( opciones );
                     }
                 }
