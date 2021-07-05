@@ -5,18 +5,19 @@ namespace ProyectoIntegrador
 {
     public class EvaluarOpcion
     {
+        
         public void evaluarOpcion()
         {
             //Leer la opcion ingresada del usuario;
             string[] opcion = opciones();
             opcionValida( opcion[0].ToLower() , opcion );
-           
         }
 
         public void opcionValida( string opcion , string[] opciones ){
+
             Program program = new Program();
 
-            if( opcion == "mostrar" || opcion == "ingresar" || opcion == "borrar" || opcion == "actualizar" || opcion == "filtrar" || opcion == "guardar"  )
+            if( opcion == "mostrar" || opcion == "ingresar" || opcion == "borrar" || opcion == "actualizar" || opcion == "filtrar" || opcion == "guardar" ||  opcion == "salir" )
             {
                 if( opciones[0] == "mostrar" )
                 {
@@ -114,7 +115,17 @@ namespace ProyectoIntegrador
                         program.funcionesApp( opciones );
                     }
                 }
+
                 
+                if( opciones[0] == "salir" )
+                {
+                    if( opciones.Length > 1 ){
+                        Console.WriteLine("*** ERROR: salir no require ninguna parametro ***");
+                        evaluarOpcion();
+                    }else {
+                        program.funcionesApp( opciones );
+                    }
+                }
                 
             }
             else
@@ -122,10 +133,7 @@ namespace ProyectoIntegrador
                 Console.WriteLine("===== ERROR: INGRESA UNA OPCION VALIDA EH INTENTA DE NUEVO =====");
                 evaluarOpcion();
             }
-
-            
         }
-        
 
         public string[] opciones()
         {
@@ -134,9 +142,6 @@ namespace ProyectoIntegrador
             return opcion.Split(" ");
         }
 
-        
-        
-        
-
     }
+
 }

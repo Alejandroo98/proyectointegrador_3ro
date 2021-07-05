@@ -5,7 +5,6 @@ namespace ProyectoIntegrador
 {
     class Program
     {
-        
         public Program(){
             List<Vehiculo> registros = new List<Vehiculo>();
         }
@@ -34,12 +33,10 @@ namespace ProyectoIntegrador
             {
                 Console.WriteLine("=== GRACIAS POR USASR NUSETRA APP ===");
             }
-            
         }
 
         public void funcionesApp( string[] opcion )
         {
-
             if ( opcion[0] == "mostrar" )
             {
                 //funcion para mostrar los registros
@@ -51,7 +48,6 @@ namespace ProyectoIntegrador
                 //funcion para ingresar nuevos registros
                 Console.WriteLine( "funcion para ingresar nuevos registros" );
                 deseasContinuar();
-
             }
             else if( opcion[0] == "borrar" )
             {
@@ -77,14 +73,19 @@ namespace ProyectoIntegrador
                 Console.WriteLine( "funcion para gurdar en XML" );
                 deseasContinuar();
             }
+            else if( opcion[0] == "salir")
+            {
+                deseasContinuar();
+            }
         }
         
         List<Vehiculo> getRegistros()
         {
             return new List<Vehiculo>();
         }
-        
+
     }
+    
 }
 
 /* Govtech Programa para ayudar a recordar los dias de circulacion de un vehiculo y fecha de matriculacion
