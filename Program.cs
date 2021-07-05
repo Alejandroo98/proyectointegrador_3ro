@@ -6,18 +6,31 @@ namespace ProyectoIntegrador
 {
     class Program
     {
-        public Program(){
-            List<Vehiculo> registros = new List<Vehiculo>();
+        public Program( List<string> registros ){
+            
+
+            // List<Vehiculo> registros = new List<Vehiculo>();
+            // List<String> registrosPlacas;
+            List<String> registrosPlacas = registros;
         }
+
+           public static List<String> registrosPlacas = new List<String>();
 
         static void Main(string[] args)
         {
             start();
         }
 
-        static void start()
+     
+
+
+        public static void start(  )
         {
-            EvaluarOpcion evaluarOpcion = new EvaluarOpcion();
+            foreach (var item in registrosPlacas)
+            {
+                Console.WriteLine( $"Desde start: {item}" );
+            }
+            EvaluarOpcion evaluarOpcion = new EvaluarOpcion( registrosPlacas );
             evaluarOpcion.evaluarOpcion();
         }
 
@@ -37,41 +50,87 @@ namespace ProyectoIntegrador
             }
         }
 
-        public void funcionesApp(string[] opcion)
+        public void mostrarRegistros()
+        {
+
+            Console.WriteLine($"Numero de registros: { registrosPlacas.Count }");
+
+            if( registrosPlacas.Count > 0 ) Console.WriteLine("=============== REGISTROS =================");
+            
+            for (int i = 0; i < registrosPlacas.Count; i++)
+            {
+                
+                Console.WriteLine( $"{ i + 1 }. { registrosPlacas[i] }" );
+            }
+
+            deseasContinuar();
+            
+        }
+
+        public void funcionesApp(string[] opcion) //=========================================================================================
         {
             if ( opcion[0] == "mostrar" )
             {
-                //funcion para mostrar los registros
-                Console.WriteLine("funcion para mostrar los registros");
-                deseasContinuar();
+                
+                mostrarRegistros();
+                
             }
             else if (opcion[0] == "ingresar")
             {
-                //funcion para ingresar nuevos registros
-                Console.WriteLine("Ingrese Placa");
+                Console.WriteLine("Ingresa el numero de placa: ");
                 string placa = Console.ReadLine();
-                Vehiculo vehiculo = new Vehiculo()
-                {
-                    Placa = placa
-                };
+                registrosPlacas.Add( placa );
 
-                Console.WriteLine("Ingrese el numero de matricula");
-                string matricula = Console.ReadLine();
+                
+                deseasContinuar();
+              
+                
+                // Console.WriteLine("Ingresa el numero de matricula: ");
+                // string matricula = Console.ReadLine();
 
-                Console.WriteLine("Ingrese La fecha de Emision de su Matricula");
-                string fechaDeEmisionMatricula = Console.ReadLine();
-                DateTime fechaDeEmisionMatricula1 = DateTime.Parse(fechaDeEmisionMatricula);
+                // Console.WriteLine("Ingresa la fecha de emision : ");
+                // DateTime fechaEmision = DateTime.Parse(Console.ReadLine());
 
-                Console.WriteLine("Ingrese la fecha de Caducidad de su Matricula");
-                string fechaDeCaducidadMatricula = Console.ReadLine();
-                DateTime fechaDeCaducidadMatricula1 = DateTime.Parse(fechaDeCaducidadMatricula);
+                // Console.WriteLine("Ingresa la fecha de caducidad : ");
+                // DateTime fechaCaducidad = DateTime.Parse(Console.ReadLine());
+                
+                // List<Vehiculo> registroVehiculo = new List<Vehiculo>(){
+                //     new Vehiculo(){ Placa = placa, MatriculaId = new Matricula(){ 
+                //         NumeroMatricula = matricula,
+                //         FechaEmisiónMatricula = fechaEmision,
+                //         FechaCaducidadMatricula = fechaCaducidad
+                //     }}
+                // };
 
-                Matricula matriculaVehiculo = new Matricula()
-                {
-                    NumeroMatricula = matricula,
-                    FechaEmisiónMatricula = fechaDeEmisionMatricula1,
-                    FechaCaducidadMatricula = fechaDeCaducidadMatricula1
-                };
+                // List<Vehiculo> registroVehiculo = new List<Vehiculo>();
+                // this.registros.Add( new Vehiculo(){ Placa = placa } );
+
+
+                 
+                // Console.WriteLine("Ingrese Placa");
+                // string placa = Console.ReadLine();
+                // Vehiculo vehiculo = new Vehiculo()
+                // {
+                //     Placa = placa
+                // };
+
+                // Console.WriteLine("Ingrese el numero de matricula");
+                // string matricula = Console.ReadLine();
+
+                // Console.WriteLine("Ingrese La fecha de Emision de su Matricula");
+                // string fechaDeEmisionMatricula = Console.ReadLine();
+                // DateTime fechaDeEmisionMatricula1 = DateTime.Parse(fechaDeEmisionMatricula);
+
+                // Console.WriteLine("Ingrese la fecha de Caducidad de su Matricula");
+                // string fechaDeCaducidadMatricula = Console.ReadLine();
+                // DateTime fechaDeCaducidadMatricula1 = DateTime.Parse(fechaDeCaducidadMatricula);
+
+                // Matricula matriculaVehiculo = new Matricula()
+                // {
+                //     NumeroMatricula = matricula,
+                //     FechaEmisiónMatricula = fechaDeEmisionMatricula1,
+                //     FechaCaducidadMatricula = fechaDeCaducidadMatricula1
+                // };
 
             }
             else if (opcion[0] == "borrar")
@@ -120,8 +179,8 @@ namespace ProyectoIntegrador
 
                 }
 
-                
-                deseasContinuar();
+                List<String> vacio = new List<String>();
+                deseasContinuar(  );
             }
 
 
@@ -138,7 +197,7 @@ namespace ProyectoIntegrador
                     NumeroMatricula = numeroMatricula
                 };
 
-                matricula.NumeroMatriculas = new List<string>
+               List<string> MumeroMatriculas = new List<string>
                 {
                    "P25132",
                    "P22512",
@@ -167,16 +226,19 @@ namespace ProyectoIntegrador
             {
                 //funcion para filtrar registros 
                 Console.WriteLine("funcion para filtrar registros");
+                List<String> vacio = new List<String>();
                 deseasContinuar();
             }
             else if (opcion[0] == "guardar")
             {
                 //funcion para gurdar en XML
                 Console.WriteLine("funcion para gurdar en XML");
+                List<String> vacio = new List<String>();
                 deseasContinuar();
             }
             else if( opcion[0] == "salir")
             {
+                List<String> vacio = new List<String>();
                 deseasContinuar();
             }
         }
@@ -192,6 +254,8 @@ namespace ProyectoIntegrador
             
             return new List<Vehiculo>();
         }
+
+        
 
     }
     

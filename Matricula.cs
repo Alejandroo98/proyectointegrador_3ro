@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ProyectoIntegrador
 {
-    class Matricula
+    public class Matricula
     {
         public int MatriculaId { get; set; }
         public string NumeroMatricula { get;set; }
