@@ -84,17 +84,17 @@ namespace ProyectoIntegrador
 
                 if( opciones[0] == "filtrar" )
                 {
-                    if( opciones.Length < 3 )
+                    if( opciones.Length < 2 )
                     {
-                        Console.WriteLine("*** ERROR: filtrar requiere dos parametros.  filtrar[campo][valor] ***");
+                        Console.WriteLine("*** ERROR: filtrar requiere un parametro.  filtrar[placa] ***");
                         evaluarOpcion();
                     }
-                    else if( opciones.Length > 3 )
+                    else if( opciones.Length > 2 )
                     {
-                        Console.WriteLine("*** ERROR: filtrar solo requiere dos parametros. filtrar[campo][valor]] ***");
+                        Console.WriteLine("*** ERROR: filtrar solo requiere un parametro. filtrar[placa] ***");
                         evaluarOpcion();
                     }
-                    else if( opciones.Length == 3 )
+                    else if( opciones.Length == 2 )
                     {
                         program.funcionesApp( opciones );
                     }
@@ -132,7 +132,7 @@ namespace ProyectoIntegrador
 
         public string[] opciones()
         {
-            Console.WriteLine("===== ESCRIBE LA OPCION QUE DESEES: ===== \n - mostrar => Mostrar registros. \n - ingresar[placa] => Ingresar registro. \n - borrar[placa] => Borrar registro. \n - actualizar[id][campo][valor] => Actualizar registro. \n - filtrar[campo][valor] => Filtrar registro. \n - guardar => Guardar en XML. \n - salir.");
+            Console.WriteLine("===== ESCRIBE LA OPCION QUE DESEES: ===== \n - mostrar => Mostrar registros. \n - ingresar => Ingresar registro. \n - borrar[placa] => Borrar registro. \n - actualizar[id][campo][valor] => Actualizar registro. \n - filtrar[placa] => Filtrar registro. \n - guardar => Guardar en XML. \n - salir.");
             string opcion = Console.ReadLine();
             return opcion.Split(" ");
         }

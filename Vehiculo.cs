@@ -12,6 +12,12 @@ namespace ProyectoIntegrador
         {
             return String.Format($"Placa: { this.Placa } - { this.MatriculaId }");
         }
+
+        public string getPlacas()
+        {
+            return Placa;
+        }
+        
     }
 
 }

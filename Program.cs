@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.IO;
+using System.Text;
 
 namespace ProyectoIntegrador
 {
@@ -50,11 +53,33 @@ namespace ProyectoIntegrador
             
             for (int i = 0; i < registrosPlacas.Count; i++)
             {
-                
                 Console.WriteLine( $"{ i + 1 }. { registrosPlacas[i] }" );
             }
 
             deseasContinuar();
+            
+        }
+
+        public void guardarXml()
+        {
+            string ruta = "C:\\Users\\USER\\Desktop\\PROYECTO_INTEGRADOR_3RO_VA\\";
+            string nombreArchivo = "registros";
+            var archivo = $"{ruta}\\{nombreArchivo}.xml";
+            FileStream fileStream = File.Create( archivo  );
+            var contenido = $"<?xml version='1.0' encoding='utf-8'?> \n";
+            
+            string data = "";
+            for (int i = 0; i < registrosPlacas.Count; i++)
+            {
+                data += $"<registro>{ i + 1 }. { registrosPlacas[i] } </registro> \n ";
+            }
+            
+            byte[] buffer  = Encoding.UTF8.GetBytes( contenido + data );
+            fileStream.Write( buffer );
+            fileStream.Flush();
+            fileStream.Close(); 
+
+            Console.WriteLine("====== REGISTRO GUARDADO ======");
             
         }
 
@@ -74,11 +99,14 @@ namespace ProyectoIntegrador
                 Console.WriteLine("Ingresa el numero de matricula: ");
                 string matricula = Console.ReadLine();
 
-                Console.WriteLine("Ingresa la fecha de emision: ");
-                DateTime fechaEmision = DateTime.Parse(Console.ReadLine());
+    
+                // Console.WriteLine("Ingresa la fecha de emision: ");
+                // DateTime fechaEmision = DateTime.Parse(Console.ReadLine());
+                DateTime fechaEmision = DateTime.Parse("15-02-2021");
 
-                Console.WriteLine("Ingresa la fecha de caducidad: ");
-                DateTime fechaCaducidad = DateTime.Parse(Console.ReadLine());
+                // Console.WriteLine("Ingresa la fecha de caducidad: ");
+                // DateTime fechaCaducidad = DateTime.Parse(Console.ReadLine());
+                DateTime fechaCaducidad = DateTime.Parse("15-02-2021");
                 
                 registrosPlacas.Add( new Vehiculo(){ Placa = placa, MatriculaId = new Matricula(){ 
                     NumeroMatricula = matricula,
@@ -91,60 +119,24 @@ namespace ProyectoIntegrador
             }
             else if (opcion[0] == "borrar")
             {
-                //funcion para borrar registros
-                Console.Write("ingrese un numero de matricula a ser borrado del sistema: ");
-                string numeroMatricula = Console.ReadLine();
 
-                Matricula matricula = new Matricula()
+                try
                 {
-                    NumeroMatricula = numeroMatricula
-                };
-
-                matricula.NumeroMatriculas = new List<string>
+                    var itemToRemove = registrosPlacas.Single( data => data.Placa == opcion[1]);
+                    registrosPlacas.Remove(itemToRemove);
+                    Console.WriteLine("SUCCESS: REGISTRO BORRADO");
+                }
+                catch (System.Exception)
                 {
-                   "P25132",
-                   "P22512",
-                   "P87924"
-                };
-
-                VerificarExisteMatricula();
-
-                void VerificarExisteMatricula()
-                {
-
-                    if (matricula.NumeroMatriculas.Contains(numeroMatricula))
-                    {
-
-                        BorrarMatricula();
-                    }
-                    else
-                    {
-                        Console.WriteLine("el numero de matricula que ingreso no esta registrado en el sistema");
-
-                    }
-                    
+                    Console.WriteLine("==== ERROR: Numero de placa no encontrada. ===== ");   
                 }
 
-                void BorrarMatricula()
-                {
-
-                    if (matricula.NumeroMatriculas.Remove(numeroMatricula))
-                    {
-                        Console.WriteLine($"El numero de matricula borrado es {numeroMatricula}");
-                    };
-
-                }
-
-                List<String> vacio = new List<String>();
-                deseasContinuar(  );
+                deseasContinuar();
             }
 
 
             else if (opcion[0] == "actualizar")
             {
-                //funcion para acualiar registros 
-                Console.WriteLine("funcion para actualizar registros ");
-                
                 Console.WriteLine("Ingrese el numero de matricula que desea actualizar ");
                 string numeroMatricula = Console.ReadLine();
 
@@ -180,22 +172,37 @@ namespace ProyectoIntegrador
             }
             else if (opcion[0] == "filtrar")
             {
-                //funcion para filtrar registros 
-                Console.WriteLine("funcion para filtrar registros");
-                List<String> vacio = new List<String>();
+
+                var filtrarPlaca = registrosPlacas.Where( data => data.Placa == opcion[1] );
+
+                if( filtrarPlaca.LongCount() < 1 ){
+
+                    Console.WriteLine( "======= PLACA NO ENCONTRADA ======== " );
+                    
+                }else 
+                {
+                    foreach (var item in filtrarPlaca)
+                    {
+                        Console.WriteLine(item);
+                    }
+                }
+
                 deseasContinuar();
+                
             }
             else if (opcion[0] == "guardar")
             {
-                //funcion para gurdar en XML
-                Console.WriteLine("funcion para gurdar en XML");
-                List<String> vacio = new List<String>();
+                
+                guardarXml();
                 deseasContinuar();
+                
             }
             else if( opcion[0] == "salir")
             {
+
                 List<String> vacio = new List<String>();
                 deseasContinuar();
+
             }
         }
 
