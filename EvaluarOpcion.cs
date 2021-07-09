@@ -9,18 +9,14 @@ namespace ProyectoIntegrador
         public EvaluarOpcion( List<Vehiculo> registros ){
             Registros = registros;
         }
-
-
         
         public void evaluarOpcion(  )
         {
-            //Leer la opcion ingresada del usuario;
             string[] opcion = opciones();
             opcionValida( opcion[0].ToLower() , opcion );
         }
 
         List<Vehiculo> Registros = new List<Vehiculo>();
-        
 
         public void opcionValida( string opcion , string[] opciones ){
 
@@ -73,10 +69,13 @@ namespace ProyectoIntegrador
 
                 if( opciones[0] == "actualizar" )
                 {
-                    if( opciones.Length > 1 ){
-                        Console.WriteLine("*** ERROR: mostrar no require ninguna parametro ***");
+                    if( opciones.Length > 2 ){
+                        Console.WriteLine("*** ERROR: atualizar require de un solo parametro.  actualizar[placa] ***");
                         evaluarOpcion();
-                    }else {
+                    }else if( opciones.Length < 2 ){
+                        Console.WriteLine("*** ERROR: atualizar require un parametro.  actualizar[placa] ***");
+                        evaluarOpcion();
+                    }else if ( opciones.Length == 2 ){
                         program.funcionesApp( opciones );
                     }
                 }

@@ -10,8 +10,6 @@ namespace ProyectoIntegrador
     class Program
     {
         public Program( List<Vehiculo> registros ){
-            // List<Vehiculo> registros = new List<Vehiculo>();
-            // List<String> registrosPlacas;
             List<Vehiculo> registrosPlacas = registros;
         }
 
@@ -24,8 +22,10 @@ namespace ProyectoIntegrador
 
         public static void start()
         {
+
             EvaluarOpcion evaluarOpcion = new EvaluarOpcion( registrosPlacas );
             evaluarOpcion.evaluarOpcion();
+            
         }
 
         public void deseasContinuar()
@@ -62,34 +62,42 @@ namespace ProyectoIntegrador
 
         public void guardarXml()
         {
+            
             string ruta = "C:\\Users\\USER\\Desktop\\PROYECTO_INTEGRADOR_3RO_VA\\";
+            
             string nombreArchivo = "registros";
+            
             var archivo = $"{ruta}\\{nombreArchivo}.xml";
+            
             FileStream fileStream = File.Create( archivo  );
+            
             var contenido = $"<?xml version='1.0' encoding='utf-8'?> \n";
             
             string data = "";
+            
             for (int i = 0; i < registrosPlacas.Count; i++)
             {
                 data += $"<registro>{ i + 1 }. { registrosPlacas[i] } </registro> \n ";
             }
             
             byte[] buffer  = Encoding.UTF8.GetBytes( contenido + data );
+            
             fileStream.Write( buffer );
+            
             fileStream.Flush();
+
             fileStream.Close(); 
 
             Console.WriteLine("====== REGISTRO GUARDADO ======");
             
         }
 
-        public void funcionesApp(string[] opcion) //=========================================================================================
+        public void funcionesApp(string[] opcion)
         {
+            
             if ( opcion[0] == "mostrar" )
             {
-                
                 mostrarRegistros();
-                
             }
             else if (opcion[0] == "ingresar")
             {
@@ -99,14 +107,11 @@ namespace ProyectoIntegrador
                 Console.WriteLine("Ingresa el numero de matricula: ");
                 string matricula = Console.ReadLine();
 
-    
-                // Console.WriteLine("Ingresa la fecha de emision: ");
-                // DateTime fechaEmision = DateTime.Parse(Console.ReadLine());
-                DateTime fechaEmision = DateTime.Parse("15-02-2021");
+                Console.WriteLine("Ingresa la fecha de emision: ");
+                DateTime fechaEmision = DateTime.Parse(Console.ReadLine());
 
-                // Console.WriteLine("Ingresa la fecha de caducidad: ");
-                // DateTime fechaCaducidad = DateTime.Parse(Console.ReadLine());
-                DateTime fechaCaducidad = DateTime.Parse("15-02-2021");
+                Console.WriteLine("Ingresa la fecha de caducidad: ");
+                DateTime fechaCaducidad = DateTime.Parse(Console.ReadLine());
                 
                 registrosPlacas.Add( new Vehiculo(){ Placa = placa, MatriculaId = new Matricula(){ 
                     NumeroMatricula = matricula,
@@ -115,15 +120,15 @@ namespace ProyectoIntegrador
                  }});
 
                 deseasContinuar();
-
             }
             else if (opcion[0] == "borrar")
             {
-
                 try
                 {
                     var itemToRemove = registrosPlacas.Single( data => data.Placa == opcion[1]);
+
                     registrosPlacas.Remove(itemToRemove);
+                    
                     Console.WriteLine("SUCCESS: REGISTRO BORRADO");
                 }
                 catch (System.Exception)
@@ -133,52 +138,62 @@ namespace ProyectoIntegrador
 
                 deseasContinuar();
             }
-
-
             else if (opcion[0] == "actualizar")
             {
-                Console.WriteLine("Ingrese el numero de matricula que desea actualizar ");
-                string numeroMatricula = Console.ReadLine();
+                string numeroPlaca = opcion[1];
 
-                Matricula matricula = new Matricula()
-                {
-                    NumeroMatricula = numeroMatricula
-                };
+                var placaUpdate = registrosPlacas.Where( placa =>  placa.Placa == numeroPlaca );
 
-               List<string> MumeroMatriculas = new List<string>
+                if( placaUpdate.Count() < 1 )
                 {
-                   "P25132",
-                   "P22512",
-                   "P87924"
-                };
-                
-                var indice = matricula.NumeroMatriculas.IndexOf(numeroMatricula);
-                matricula.NumeroMatriculas.RemoveAt(indice);
-                
-                Console.WriteLine("Ingrese el nuevo valor: ");
-                string numeroMatriculaActualizar = Console.ReadLine();
-                
-                matricula.NumeroMatriculas.Insert(indice, numeroMatriculaActualizar);
-                
-                Console.WriteLine($"el valor cambio de {numeroMatricula} a {numeroMatriculaActualizar}");
+                    Console.WriteLine($"No se encontro ningun vehiculo con la placa: { numeroPlaca }");
+                    deseasContinuar();
+                }else
+                {
+                    Console.WriteLine("===== Vehiculo encontrado =====");
 
-                foreach (var actual in matricula.NumeroMatriculas)
-                {
-                    Console.WriteLine(actual);
+                    foreach (var item in placaUpdate)
+                    {
+                        Console.WriteLine(  item );
+                    }
+
+                    Console.WriteLine("=== Ingresa el campo a actualizar =====\n 1. Placa. \n 2. Matricula \n 3. Fecha emision matricula \n 4. Fecha caducidad matricula ====");
+                    string campoActualizar = Console.ReadLine();
+
+                    Console.WriteLine("==== Ingresa el nuevo valor ====");
+                    string nuevoValor = Console.ReadLine();
+
+                    foreach (var vehiculo in registrosPlacas.Where( placa =>  placa.Placa == numeroPlaca ))
+                    {
+
+                        if( campoActualizar == "1" )
+                        {
+                            vehiculo.Placa = nuevoValor;
+                        }else if ( campoActualizar == "2" )
+                        {
+                            vehiculo.MatriculaId.NumeroMatricula = nuevoValor;
+                        }else if ( campoActualizar == "3" )
+                        {
+                            vehiculo.MatriculaId.FechaEmisiónMatricula = DateTime.Parse( nuevoValor );
+                        }else if ( campoActualizar == "4" )
+                        {
+                            vehiculo.MatriculaId.FechaCaducidadMatricula = DateTime.Parse( nuevoValor );
+                        }
+                        
+                    }
+                        Console.WriteLine("==== INFORAMCION ACTULIZADA ====");
+                        
+                        deseasContinuar();
                 }
-                
-                deseasContinuar();
+
                 
             }
             else if (opcion[0] == "filtrar")
             {
-
                 var filtrarPlaca = registrosPlacas.Where( data => data.Placa == opcion[1] );
 
                 if( filtrarPlaca.LongCount() < 1 ){
-
                     Console.WriteLine( "======= PLACA NO ENCONTRADA ======== " );
-                    
                 }else 
                 {
                     foreach (var item in filtrarPlaca)
@@ -188,22 +203,18 @@ namespace ProyectoIntegrador
                 }
 
                 deseasContinuar();
-                
             }
             else if (opcion[0] == "guardar")
             {
-                
                 guardarXml();
                 deseasContinuar();
-                
             }
             else if( opcion[0] == "salir")
             {
-
                 List<String> vacio = new List<String>();
                 deseasContinuar();
-
             }
+            
         }
 
     }
